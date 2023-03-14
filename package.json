@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/node": "^18.14.5",
+    "axios": "^1.3.4",
     "node-typescript": "^0.1.3"
   }
 }
