@@ -1,3 +1,39 @@
 {
-  "users": []
+  "users": [
+    {
+      "name": "Dani",
+      "age": 30,
+      "id": 1
+    },
+    {
+      "name": "Dani",
+      "age": 30,
+      "id": 2
+    },
+    {
+      "name": "Dani",
+      "age": 30,
+      "id": 3
+    },
+    {
+      "name": "Dani",
+      "age": 30,
+      "id": 4
+    },
+    {
+      "name": "Dani",
+      "age": 30,
+      "id": 5
+    },
+    {
+      "name": "Dani",
+      "age": 30,
+      "id": 6
+    },
+    {
+      "name": "Dani",
+      "age": 30,
+      "id": 7
+    }
+  ]
 }

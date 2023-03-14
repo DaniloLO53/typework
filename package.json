@@ -5,14 +5,18 @@
   "main": "./build/js/main.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "parcel build/index.html",
+    "build": "parcel build build/index.html"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/node": "^18.14.5",
-    "axios": "^1.3.4",
-    "node-typescript": "^0.1.3"
+    "@types/axios": "^0.14.0",
+    "@types/node": "^18.14.5"
+  },
+  "devDependencies": {
+    "buffer": "^5.7.1",
+    "parcel": "^2.8.3"
   }
 }

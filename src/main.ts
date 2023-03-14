@@ -1,8 +1,7 @@
-import { User } from "./models/User.js";
+import axios from 'axios';
 
-const danilo = new User({name: 'Danilo', age: 26});
-
-danilo.on('click', () => console.log(0));
-danilo.on('click', () => console.log(1));
-danilo.on('change', () => {});
-console.log(danilo.trigger('mouse'));
+const x = axios.post('http://localhost:3000/users', {
+  name: 'Dani',
+  age: 30
+});
+console.log(x)
