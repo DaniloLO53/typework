@@ -8,10 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import axios from "axios";
+import { Eventing } from "./Eventing";
 ;
 export class User {
     constructor(userProps) {
         this.userProps = userProps;
+        this.events = new Eventing();
     }
     get(prop) {
         return this.userProps[prop];

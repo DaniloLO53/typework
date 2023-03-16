@@ -573,6 +573,7 @@ parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "User", ()=>User);
 var _axios = require("axios");
 var _axiosDefault = parcelHelpers.interopDefault(_axios);
+var _eventing = require("./Eventing");
 var __awaiter = undefined && undefined.__awaiter || function(thisArg, _arguments, P, generator) {
     function adopt(value) {
         return value instanceof P ? value : new P(function(resolve) {
@@ -603,6 +604,7 @@ var __awaiter = undefined && undefined.__awaiter || function(thisArg, _arguments
 class User {
     constructor(userProps){
         this.userProps = userProps;
+        this.events = new (0, _eventing.Eventing)();
     }
     get(prop) {
         return this.userProps[prop];
@@ -635,7 +637,7 @@ class User {
     }
 }
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","axios":"jo6P5"}],"gkKU3":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","axios":"jo6P5","./Eventing":"LNWYL"}],"gkKU3":[function(require,module,exports) {
 exports.interopDefault = function(a) {
     return a && a.__esModule ? a : {
         default: a
@@ -4782,6 +4784,26 @@ Object.entries(HttpStatusCode).forEach(([key, value])=>{
     HttpStatusCode[value] = key;
 });
 exports.default = HttpStatusCode;
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"LNWYL":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "Eventing", ()=>Eventing);
+class Eventing {
+    constructor(){
+        this.events = {};
+    }
+    on(eventName, callback) {
+        this.events[eventName] = [
+            ...this.events[eventName] || [],
+            callback
+        ];
+    }
+    trigger(eventName) {
+        var _a;
+        (_a = this.events[eventName]) === null || _a === void 0 || _a.forEach((callback)=>callback());
+    }
+}
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["iA9yA","jC8yI"], "jC8yI", "parcelRequirece5c")
 
