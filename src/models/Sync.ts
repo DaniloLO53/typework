@@ -1,21 +1,25 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosPromise, AxiosResponse } from "axios";
 import { JoinUrl } from "../helpers/JoinUrl";
 import { UserProps } from "./User";
 
-export class Sync {
+interface HasId {
+  id?: number;
+};
+
+export class Sync<T extends HasId> {
   constructor(public rootUrl: string) {};
 
-  async save(): Promise<void> {
-    const id = this.get('id');
+  async save(data: T): AxiosPromise {
+    const { id } = data;
 
     try {
       if (id) {
         const url = new JoinUrl(this.rootUrl, [id]);
-        axios.put(url.join(), this.userProps);
+        return axios.put(url.join(), data);
 
       } else {
         const url = new JoinUrl(this.rootUrl);
-        axios.post(url.join(), this.userProps);
+        return axios.post(url.join(), data);
 
       }
 
@@ -26,11 +30,10 @@ export class Sync {
 
   };
 
-  async fetch(): Promise<void> {
+  async fetch(id: number): AxiosPromise {
     try {
-      const url = new JoinUrl(this.rootUrl, [this.get('id')]);
-      const { data }: AxiosResponse = await axios.get(url.join());
-      this.set(data);
+      const url = new JoinUrl(this.rootUrl, [id]);
+      return await axios.get(url.join());
 
     } catch (error: any) {
       console.log(error);

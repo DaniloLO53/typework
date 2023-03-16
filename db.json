@@ -1,14 +1,4 @@
 {
   "users": [
-    {
-      "name": "dandan",
-      "age": 66,
-      "id": 1
-    },
-    {
-      "id": 2,
-      "name": "rafaa",
-      "age": 5
-    }
   ]
 }

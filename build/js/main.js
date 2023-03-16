@@ -1,4 +1,3 @@
-import { User } from './models/User';
-const rafa = new User({ id: 2 });
-rafa.set({ name: 'rafaa', age: 5 });
-rafa.save();
+import { User } from "./models/User";
+const danilo = new User({ name: 'dani', age: 26 });
+danilo.get('name');

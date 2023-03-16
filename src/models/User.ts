@@ -1,6 +1,10 @@
 import axios, { AxiosResponse } from "axios";
 import { Callback } from "../utils/Types";
+import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
+import { Sync } from "./Sync";
+
+const ROOTURL = 'http://localhost:3000/users/';
 
 export interface UserProps {
   id?: number;
@@ -10,15 +14,22 @@ export interface UserProps {
 
 export class User {
   public events: Eventing = new Eventing();
-
-  constructor(private userProps: UserProps) {}
-
-  get(prop: keyof UserProps): string | number | undefined {
-    return this.userProps[prop];
-  };
-
-  set(update: Partial<UserProps>): void {
-    Object.assign(this.userProps, update);
+  public sync: Sync<UserProps> = new Sync(ROOTURL);
+  public attributes: Attributes<UserProps>;
+  
+  constructor(attrs: UserProps) {
+    this.attributes = new Attributes<UserProps>(attrs);
   }
 
+  get on() {
+    return this.events.on;
+  }
+
+  get trigger() {
+    return this.events.trigger;
+  }
+
+  get get() {
+    return this.attributes.get;
+  }
 }
