@@ -1,18 +1,16 @@
-interface UserProps {
-  name: string;
-  age: number;
-}
+import axios, { AxiosResponse } from "axios";
+import { Callback } from "../utils/Types";
 
-type Calback = () => void;
+export interface UserProps {
+  id?: number;
+  name?: string;
+  age?: number;
+};
 
 export class User {
-  events: { [key: string]: Calback[] } = {};
+  constructor(private userProps: UserProps) {}
 
-  constructor(
-    private userProps: UserProps
-  ) {}
-
-  get(prop: keyof UserProps): string | number {
+  get(prop: keyof UserProps): string | number | undefined {
     return this.userProps[prop];
   };
 
@@ -20,11 +18,33 @@ export class User {
     Object.assign(this.userProps, update);
   }
 
-  on(eventName: string, callback: Calback): void {
-    this.events[eventName] = [...(this.events[eventName] || []), callback];
+  async save(): Promise<void> {
+    const id = this.get('id');
+
+    try {
+      if (id) {
+        axios.put(`http://localhost:3000/users/${id}`, this.userProps);
+
+      } else {
+        axios.post(`http://localhost:3000/users/`, this.userProps);
+
+      }
+
+    } catch (error: any) {
+      console.log(error);
+      throw new Error(error);
+    }
+
   };
 
-  trigger(eventName: string): void {
-    this.events[eventName]?.forEach((callback) => callback());
+  async fetch(): Promise<void> {
+    try {
+      const { data }: AxiosResponse = await axios.get(`http://localhost:3000/users/${this.get('id')}`);
+      this.set(data);
+
+    } catch (error: any) {
+      console.log(error);
+      throw new Error(error);
+    }
   };
 }

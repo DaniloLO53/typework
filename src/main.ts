@@ -1,7 +1,6 @@
 import axios from 'axios';
+import { User } from './models/User';
 
-const x = axios.post('http://localhost:3000/users', {
-  name: 'Dani',
-  age: 30
-});
-console.log(x)
+const rafa = new User({ id: 2 });
+rafa.set({name: 'rafaa', age: 5});
+rafa.save();
