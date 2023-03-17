@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios, { AxiosPromise, AxiosResponse } from "axios";
 import { Callback } from "../utils/Types";
 import { Attributes } from "./Attributes";
 import { Eventing } from "./Eventing";
@@ -36,5 +36,18 @@ export class User {
   set(update: UserProps): void {
     this.attributes.set(update);
     this.events.trigger('change');
+  }
+
+  async fetch(): Promise<void> {
+    const id = this.get('id');
+
+    if (id) {
+      const response: AxiosResponse = await this.sync.fetch(id);
+      const { data } = response;
+
+      this.set(data);
+    } else {
+      throw new Error('Error on fetching: no id of type number provided');
+    }
   }
 }
