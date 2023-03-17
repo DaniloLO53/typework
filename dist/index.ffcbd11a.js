@@ -587,6 +587,10 @@ class User {
     get get() {
         return this.attributes.get;
     }
+    set(update) {
+        this.attributes.set(update);
+        this.events.trigger("change");
+    }
 }
 
 },{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./Eventing":"LNWYL","./Attributes":"a6ZKB","./Sync":"9Dmsf"}],"gkKU3":[function(require,module,exports) {
@@ -626,16 +630,16 @@ parcelHelpers.export(exports, "Eventing", ()=>Eventing);
 class Eventing {
     constructor(){
         this.events = {};
-    }
-    on(eventName, callback) {
-        this.events[eventName] = [
-            ...this.events[eventName] || [],
-            callback
-        ];
-    }
-    trigger(eventName) {
-        var _a;
-        (_a = this.events[eventName]) === null || _a === void 0 || _a.forEach((callback)=>callback());
+        this.on = (eventName, callback)=>{
+            this.events[eventName] = [
+                ...this.events[eventName] || [],
+                callback
+            ];
+        };
+        this.trigger = (eventName)=>{
+            var _a;
+            (_a = this.events[eventName]) === null || _a === void 0 || _a.forEach((callback)=>callback());
+        };
     }
 }
 

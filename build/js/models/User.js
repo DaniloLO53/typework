@@ -18,4 +18,8 @@ export class User {
     get get() {
         return this.attributes.get;
     }
+    set(update) {
+        this.attributes.set(update);
+        this.events.trigger('change');
+    }
 }
