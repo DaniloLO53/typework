@@ -7,43 +7,46 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-export class Model {
-    constructor(attributes, events, sync) {
-        this.attributes = attributes;
-        this.events = events;
-        this.sync = sync;
-        this.on = this.events.on;
-        this.trigger = this.events.trigger;
-        this.get = this.attributes.get;
+import axios from "axios";
+import { JoinUrl } from "../helpers/JoinUrl";
+;
+export class ApiSync {
+    constructor(rootUrl) {
+        this.rootUrl = rootUrl;
     }
-    set(update) {
-        this.attributes.set(update);
-        this.events.trigger('change');
-    }
-    fetch() {
+    ;
+    save(data) {
         return __awaiter(this, void 0, void 0, function* () {
-            const id = this.get('id');
-            if (id) {
-                const response = yield this.sync.fetch(id);
-                const { data } = response;
-                this.set(data);
-            }
-            else {
-                throw new Error('Error on fetching: no id of type number provided');
-            }
-        });
-    }
-    save() {
-        return __awaiter(this, void 0, void 0, function* () {
+            const { id } = data;
             try {
-                yield this.sync.save(this.attributes.getAll());
-                this.trigger('save');
+                if (id) {
+                    const url = new JoinUrl(this.rootUrl, [id]);
+                    return axios.put(url.join(), data);
+                }
+                else {
+                    const url = new JoinUrl(this.rootUrl);
+                    return axios.post(url.join(), data);
+                }
             }
             catch (error) {
-                this.trigger('error');
-                throw new Error('Error on saving');
+                console.log(error);
+                throw new Error(error);
             }
         });
     }
+    ;
+    fetch(id) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const url = new JoinUrl(this.rootUrl, [id]);
+                return yield axios.get(url.join());
+            }
+            catch (error) {
+                console.log(error);
+                throw new Error(error);
+            }
+        });
+    }
+    ;
 }
 ;
