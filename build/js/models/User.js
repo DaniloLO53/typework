@@ -15,4 +15,8 @@ export class User extends Model {
     static buildUserCollection() {
         return new Collection(ROOTURL, (json) => User.buildUser(json));
     }
+    setRandomAge() {
+        const randomAge = Math.floor(Math.random() * 100);
+        this.set({ age: randomAge });
+    }
 }
