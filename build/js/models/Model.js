@@ -7,16 +7,11 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Attributes } from "./Attributes";
-import { Eventing } from "./Eventing";
-import { Sync } from "./Sync";
-const ROOTURL = 'http://localhost:3000/users/';
-;
-export class User {
-    constructor(attrs) {
-        this.events = new Eventing();
-        this.sync = new Sync(ROOTURL);
-        this.attributes = new Attributes(attrs);
+export class Model {
+    constructor(attributes, events, sync) {
+        this.attributes = attributes;
+        this.events = events;
+        this.sync = sync;
     }
     get on() {
         return this.events.on;
@@ -57,3 +52,4 @@ export class User {
         });
     }
 }
+;

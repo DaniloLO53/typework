@@ -1,13 +1,17 @@
-import { UserProps } from "./User";
+import { AnyObject } from "../utils/Types";
 
-export class Attributes<T> {
-  constructor(private userProps: T) {}
+export class Attributes<T extends AnyObject> {
+  constructor(private data: T) {}
 
   get = <K extends keyof T>(key: K): T[K] => { // bound "this"
-    return this.userProps[key];
+    return this.data[key];
   };
 
-  set(update: T): void {
-    Object.assign(this.userProps as UserProps, update);
-  }
+  getAll(): T {
+    return this.data;
+  };
+
+  set(update: Partial<T>): void {
+    Object.assign(this.data as T, update);
+  };
 };

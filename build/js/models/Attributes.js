@@ -1,12 +1,17 @@
 export class Attributes {
-    constructor(userProps) {
-        this.userProps = userProps;
+    constructor(data) {
+        this.data = data;
         this.get = (key) => {
-            return this.userProps[key];
+            return this.data[key];
         };
     }
-    set(update) {
-        Object.assign(this.userProps, update);
+    getAll() {
+        return this.data;
     }
+    ;
+    set(update) {
+        Object.assign(this.data, update);
+    }
+    ;
 }
 ;
