@@ -1,8 +1,7 @@
-export class UserForm {
-    constructor(parent, model) {
-        this.parent = parent;
-        this.model = model;
-        this.bindModel = () => this.model.on('change', () => this.render());
+import { View } from "./View";
+export class UserForm extends View {
+    constructor() {
+        super(...arguments);
         this.onSetNameClick = () => {
             const input = this.parent.querySelector('input');
             if (input) {
@@ -13,7 +12,6 @@ export class UserForm {
         this.onSetAgeClick = () => {
             this.model.setRandomAge();
         };
-        this.bindModel();
     }
     template() {
         return `
@@ -32,21 +30,5 @@ export class UserForm {
             'click:.set-age': this.onSetAgeClick,
             'click:.set-name': this.onSetNameClick,
         };
-    }
-    bindEvents(fragment) {
-        const eventsMap = this.eventsMap();
-        for (let eventKey in eventsMap) {
-            const [eventName, selector] = eventKey.split(':');
-            fragment.querySelectorAll(selector).forEach((element) => {
-                element.addEventListener(eventName, eventsMap[eventKey]);
-            });
-        }
-    }
-    render() {
-        this.parent.innerHTML = '';
-        const templateElement = document.createElement('template');
-        templateElement.innerHTML = this.template();
-        this.bindEvents(templateElement.content);
-        this.parent.appendChild(templateElement.content);
     }
 }
