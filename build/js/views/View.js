@@ -2,8 +2,16 @@ export class View {
     constructor(parent, model) {
         this.parent = parent;
         this.model = model;
+        this.regions = {};
         this.bindModel = () => this.model.on('change', () => this.render());
         this.bindModel();
+    }
+    eventsMap() {
+        return {};
+    }
+    ;
+    regionsMap() {
+        return {};
     }
     bindEvents(fragment) {
         const eventsMap = this.eventsMap();
@@ -14,11 +22,25 @@ export class View {
             });
         }
     }
+    mapRegions(fragment) {
+        const regionsMap = this.regionsMap();
+        for (let key in regionsMap) {
+            const selector = regionsMap[key];
+            const element = fragment.querySelector(selector);
+            if (element) {
+                this.regions[key] = element;
+            }
+        }
+    }
+    onRender() {
+    }
     render() {
         this.parent.innerHTML = '';
         const templateElement = document.createElement('template');
         templateElement.innerHTML = this.template();
         this.bindEvents(templateElement.content);
+        this.mapRegions(templateElement.content);
+        this.onRender();
         this.parent.appendChild(templateElement.content);
     }
 }
