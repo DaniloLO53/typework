@@ -5,8 +5,10 @@ export class UserForm {
         this.bindModel = () => this.model.on('change', () => this.render());
         this.onSetNameClick = () => {
             const input = this.parent.querySelector('input');
-            const name = input === null || input === void 0 ? void 0 : input.value;
-            this.model.set({ name });
+            if (input) {
+                const name = input.value;
+                this.model.set({ name });
+            }
         };
         this.onSetAgeClick = () => {
             this.model.setRandomAge();
