@@ -11,6 +11,6 @@ export interface FormAttributes {
 export type Callback = () => void;
 
 export interface FormEvents {
-  click?: Callback[],
+  submit?: Callback[],
   hover?: Callback[],
 };
