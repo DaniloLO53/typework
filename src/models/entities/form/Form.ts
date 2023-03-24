@@ -12,8 +12,9 @@ export class Form {
     this.attributes = new Attributes<FormAttributes>(attrs);
   }
 
-  get set() {
-    return this.attributes.set;
+  set(attribute: FormAttributes): void {
+    this.attributes.set(attribute);
+    this.events.trigger('change');
   }
 
   get get() {
