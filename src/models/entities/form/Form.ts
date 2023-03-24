@@ -1,19 +1,23 @@
+import { Attributes } from "../../attributes/Attributes";
 import { Eventing } from "../../eventing/Eventing";
 import { Callback, FormAttributes, FormEvents } from "./FormAttributes";
 
 export class Form {
   public events: Eventing = new Eventing();
+  public attributes: Attributes<FormAttributes>;;
 
   constructor(
-    private attributes: FormAttributes,
-  ) {}
-
-  get<K extends keyof  FormAttributes>(attribute: K): FormAttributes[K]  {
-    return this.attributes[attribute];
+    public attrs: FormAttributes
+  ) {
+    this.attributes = new Attributes<FormAttributes>(attrs);
   }
 
-  set(attributes: Partial<FormAttributes>): void {
-    Object.assign(this.attributes, attributes);
+  get set() {
+    return this.attributes.set;
+  }
+
+  get get() {
+    return this.attributes.get;
   }
 
   get on() {
