@@ -10,12 +10,6 @@ export class Form {
   }
 
   set(attributes: Partial<FormAttributes>): void {
-    const attrsList = Object.entries(attributes);
-
-    attrsList.forEach((attr) => {
-      const [name, type] = attr;
-
-      this.attributes[name] = type;
-    })
+    Object.assign(this.attributes, attributes);
   }
 };
