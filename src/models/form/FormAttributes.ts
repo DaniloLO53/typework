@@ -1,5 +1,5 @@
-type action = 'GET' | 'POST';
+type method = 'GET' | 'POST';
 
 export interface FormAttributes {
-  action?: action;
+  method?: method;
 };
