@@ -1,4 +1,4 @@
-import { Form } from "./models/form/Form";
+import { Form } from "./models/entities/form/Form";
 
 const form1 = new Form({method: 'GET', target: '_self'});
 
