@@ -1,6 +1,6 @@
 import { Form } from "./models/entities/form/Form";
 
-const form1 = new Form({method: 'GET', target: '_self'});
+const form1 = Form.buildForm({method: 'GET', target: '_self'});
 
 form1.set({method: 'POST', target: '_blank'});
 
